@@ -2,12 +2,18 @@ import React from 'react'
 import { Link } from "react-router-dom";
 import styles from "../../styles/styles";
 import logo from "../../Assests/Sitelogo/logo.png";
+import {userlogedout} from "../Login/Login.Slice";
+import { useSelector, useDispatch } from "react-redux";
 const Headercomp = () => {
+  const dispatch = useDispatch();
+  const UserLogout=()=>{
+          dispatch(userlogedout());
+  }
   return (
     <div>
 <nav class={`${styles.defaultColor} border-black dark:bg-gray-900`}>
   <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
-    <Link to="/" class="flex items-center space-x-3 rtl:space-x-reverse">
+    <Link to="/my-notes" class="flex items-center space-x-3 rtl:space-x-reverse">
         <img src={logo} class="h-10" alt="Quick Memo" />
         <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">Quick Memo</span>
     </Link>
@@ -23,17 +29,17 @@ const Headercomp = () => {
           <a href="/my-notes" class="block py-2 px-3 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 dark:text-white md:dark:text-blue-500" aria-current="page">Home</a>
         </li>
         <li>
-          <a href="#" class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">About</a>
+          <a href="/notes-writer" class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">Write note</a>
         </li>
         <li>
-          <a href="#" class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">Services</a>
+          <a onClick={UserLogout} href="#" class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">Log out</a>
         </li>
-        <li>
+        {/* <li>
           <a href="#" class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">Pricing</a>
         </li>
         <li>
           <a href="#" class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">Contact</a>
-        </li>
+        </li> */}
       </ul>
     </div>
   </div>

@@ -28,11 +28,17 @@ const initialState = {
       Putuserdata: (state, { payload }) => {
         state.userdata = payload;
       },
+      userlogedout: (state) => {
+        state.isLoading = false;
+        state.isAuth = false;
+        state.error = "";
+        state.userdata = "";
+      },
     },
   });
   
   const { reducer, actions } = loginSlice;
   
-  export const { loginPending, loginSuccess, loginFail, clearerror, Putuserdata } = actions;
+  export const { loginPending, loginSuccess, loginFail, clearerror, Putuserdata, userlogedout } = actions;
   
   export default reducer;

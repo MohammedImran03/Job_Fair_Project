@@ -18,6 +18,7 @@ const Writer = () => {
     const [deletenotes, setDeletenotes] = useState(false);
     const dispatch=useDispatch();
     const [smallscreennotes,setSmallscreennotes]=useState({});
+    const { isAuth,userdata } = useSelector((state) => state.login);
     const { isLoading, status, notes} = useSelector(
         (state) => state.tempnotes
         );
@@ -49,7 +50,7 @@ const Writer = () => {
             console.log("nil note");
             toast.error('Empty Notes Can not be created');
         }
-        const values = await Object.assign({  "userId" : "1" ,
+        const values = await Object.assign({  "userId" : userdata._id ,
         "notes": notes,
         "link": "hiii",
         "filesattached":"hiiii"});
