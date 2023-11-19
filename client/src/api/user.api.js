@@ -1,7 +1,7 @@
 import axios from "axios";
 import { server } from "../server";
 
-const usersigninapi = server + "/user/Sign-up";
+const usersigninapi = server + "/user/user-Sign-up";
 const userloginapi = server + "/user/user-Sign-In";
 
 export const userRegistration = (values) => {
@@ -26,6 +26,7 @@ export const userRegistration = (values) => {
         if (res.data.success === true) {
           resolve(res.data);
         }
+        console.log(res);
       } catch (error) {
         reject(error);
       }

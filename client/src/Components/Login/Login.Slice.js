@@ -3,6 +3,7 @@ const initialState = {
     isLoading: false,
     isAuth: false,
     error: "",
+    userdata:"",
   };
   const loginSlice = createSlice({
     name: "login",
@@ -24,11 +25,14 @@ const initialState = {
       clearerror: (state) => {
         state.error = "";
       },
+      Putuserdata: (state, { payload }) => {
+        state.userdata = payload;
+      },
     },
   });
   
   const { reducer, actions } = loginSlice;
   
-  export const { loginPending, loginSuccess, loginFail, clearerror } = actions;
+  export const { loginPending, loginSuccess, loginFail, clearerror, Putuserdata } = actions;
   
   export default reducer;

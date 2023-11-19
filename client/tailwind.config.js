@@ -1,12 +1,15 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: ["./src/**/*.{html,js,jsx}",'node_modules/flowbite-react/**/*.{js,jsx,ts,tsx}'],
+  content: [
+    "./src/**/*.{html,js,jsx}",
+    'node_modules/flowbite-react/**/*.{js,jsx,ts,tsx}',
+  ],
   mode: "jit",
   theme: {
     fontFamily: {
       Roboto: ["Roboto"],
-      Poppins: ['Poppins'],
-      title:["Kanit"]
+      Poppins: ["Poppins"],
+      title: ["Kanit"],
     },
     extend: {
       screens: {
@@ -14,12 +17,9 @@ module.exports = {
         "1100px": "1110px",
         "800px": "800px",
         "1300px": "1300px",
-        "400px":"400px"
+        "400px": "400px",
       },
     },
   },
-  plugins: [
-    require('flowbite/plugin')
-],
+  plugins: [require("flowbite/plugin")],
 };
-

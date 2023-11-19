@@ -9,51 +9,43 @@ const sendMail =require("../utils/mailsender");
 const catchAsyncErrors=require("../middleware/AsyncErrors");
 const sendToken=require("../utils/sendjwttoken");
 const {isAuthenticated} = require("../middleware/authentication.js");
+
 //Create User Sign Up
-router.post("/Sign-up", async (req, res, next) => {
-      const { name, email, password, avatar,mobile } = req.body;
+router.post("/user-Sign-up", async (req, res, next) => {
+      const { name, email, password } = req.body;
       try {
-      const userEmail = await User.findOne({ email });
+      let userEmail = await User.findOne({ email });
       if (userEmail) {
-        return next(new ErrorHandler("User already exists Please try to SignUp with different Email", 400));
+        return res.status(400).json({
+          success: false,
+          message: "User already exists Please try to SignUp with different Email",
+        });
       }
-    // const myCloud = await cloudinary.v2.uploader.upload(avatar, {
-    //     folder: "avatars",
-    //   });
-    //   console.log(myCloud);
       const user = {
         name: name,
         email: email,
-        password: password,
-        mobile:mobile,
-        avatar: {
-            // public_id: myCloud.public_id,
-            // url: myCloud.secure_url,
-            url: avatar
-        },
+        password: password
       };
-      const activationToken = createActivationToken(user);
-      const activationUrl = `http://localhost:3000/activation/${activationToken}`;
-      try {
-        // const createuser = await User.create(user);
-        // if (createuser?._id) {
+      // try {
           await sendMail({
           email: user.email,
-          subject: "Account Activation Link",
-          message: `Hello ${user.name}, Please click on the link to activate your Vendor Bay account : ${activationUrl}\nNote:Link will Expires in 15 minutes`,
+          subject: "QuickMemo Account Creation Successfull",
+          message: `Hello ${user.name}, Account Creation towards QuickMemo platform is Successful.\nLog in to enjoy the features in QuickMemo`,
         });
-            res.status(201).json({
+          return  res.status(201).json({
                 success: true,
-                message: `please check your email ${user.email} to activate your Vendor Bay account!`,
+                message: `Hello ${user.name} QuickMemo account Created Successfully`,
               });
-        //   } else {
-        //     return next(new ErrorHandler("Registeration Failed Please Try again Later", 500));
-        //   }
-      } catch (error) {
-        return next(new ErrorHandler(error.message, 500));
-      }
+        userEmail = await User.create({name, email, password });
+      //         sendToken(userEmail, 201, res);            
+      // // } catch (error) {
+      //   return next(new ErrorHandler(error.message, 500));
+      // }
     } catch (error) {
-        return next(new ErrorHandler(error.message, 400));
+        return res.status(500).json({
+          success: false,
+          message: error.message,
+        });
     }
   });
 
@@ -74,13 +66,13 @@ const createActivationToken = (user) => {
           return next(new ErrorHandler("Invalid token", 400));
         }
         const { name, email, password, avatar,mobile } = newUser;
-        let user = await User.findOne({ email });
-        if (user) {
+        let Existeduser = await User.findOne({ email });
+        if (Existeduser) {
           return next(new ErrorHandler("User already exists", 400));
         }
         // else{
-            user = await User.create({name, email, password, avatar,mobile});
-            sendToken(user, 201, res);
+          Existeduser = await User.create({name, email, password, avatar,mobile});
+            sendToken(Existeduser, 201, res);
         // }
       } catch (error) {
         return next(new ErrorHandler(error.message, 500));
@@ -93,21 +85,36 @@ router.post("/user-Sign-In",catchAsyncErrors(async (req, res, next) => {
   const { email, password } = req.body;
     try {
       if (!email || !password) {
-        return next(new ErrorHandler("Login Credentials Missing !", 400));
+        return res.status(400).json({
+          success: false,
+          message: "Login Credentials Missing !",
+        });
       }
       const user = await User.findOne({ email }).select("+password");
       if (!user) {
-        return next(new ErrorHandler("User doesn't exists !", 400));
+        return res.status(400).json({
+          success: false,
+          message: "User doesn't exists !",
+        });
       }
       const isPasswordValid = await user.comparePassword(password);
       if (!isPasswordValid) {
-        return next(
-          new ErrorHandler("Password Doesnot Match!, Please Provide Valid Information", 400)
-        );
+        return  res.status(400).json({
+          success: false,
+          message: "Password Doesnot Match!, Please Provide Valid Information !",
+        });
       }
-      sendToken(user, 201, res);
+      return  res.status(200).json({
+        success: true,
+        message: "Log in Successfull...",
+        data:user
+      });
+      // sendToken(user, 201, res);
     } catch (error) {
-      return next(new ErrorHandler(error.message, 500));
+      return res.status(500).json({
+        success: false,
+        message: error.message,
+      });
     }
   })
 );

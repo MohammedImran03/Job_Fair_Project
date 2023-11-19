@@ -1,11 +1,9 @@
 import toast from 'react-hot-toast';
 
-
 /** validate register form */
 export async function registerValidation(values){
     const errors = !values.name && !values.mobile && !values.password && !values.email;
     usernameVerify(errors, values);
-    MobileVerify(errors, values);
     emailVerify(errors, values);
     passwordVerify(errors, values);  
     return errors;
@@ -20,17 +18,6 @@ function usernameVerify(error = {}, values){
     return error;
 }
 
-/** Mobile username */
-function MobileVerify(error = {}, values){
-    if(!values.mobile){
-        error.mobile = toast.error('Mobile Number Required !');
-    }else if(values.mobile.includes(" ")){
-        error.mobile = toast.error('Invalid Mobile Number !')
-    }else if(values.mobile.length < 10 || values.mobile.length > 10){
-        error.mobile = toast.error('Mobile Number must require 10 Numbers!')
-    }
-    return error;
-}
 
 /** validate password */
 function passwordVerify(errors = {}, values){

@@ -18,10 +18,10 @@ app.use(cors({
 // app.use(bodyParser.json());
 
   app.use("/test", (req, res) => {
-    res.send("Hello world this is Multivendor E-Commerce server 1!");
+    res.send("Hello world this is Notes_Taking_App server 1!");
   });
   app.get("/servertest", (req, res) => {
-    res.send("Hello world this is Multivendor E-Commerce server 2!");
+    res.send("Hello world this is Notes_Taking_App server 2!");
   });
 
   
@@ -33,10 +33,11 @@ if (process.env.NODE_ENV !== "PRODUCTION") {
   }
   //Routes Import 
 const user = require("./controller/user.controller");
-
+const note = require("./controller/notes.controller");
 
   //Routes Usage
   app.use("/api/user",user);
+  app.use("/api/notes",note);
 
   // ErrorHandling
   app.use(ErrorHandler);

@@ -2,7 +2,7 @@ import { React, useState } from "react";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import { Link, useNavigate } from "react-router-dom";
 import styles from "../../styles/styles";
-import logo from "../../Assests/Sitelogo/logo.svg";
+import logo from "../../Assests/Sitelogo/logo.png";
 import toast, { Toaster } from 'react-hot-toast';
 import {accessusertologin} from './Login.Action';
 import { useSelector, useDispatch } from "react-redux";
@@ -55,9 +55,9 @@ const Login = () => {
 </div>
 </div> 
  } 
-      <div className="sm:mx-auto sm:w-full sm:max-w-md">
+ <div className="sm:mx-auto sm:w-full sm:max-w-md">
         <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900 flex justify-center">
-        <img src={logo} className="w-8 h-8 mr-2"/>
+        <img src={logo} className="w-12 h-12 mr-2"/>
           Sign In  
         </h2>
       </div>
@@ -137,7 +137,7 @@ const Login = () => {
                   href=".forgot-password"
                   className=" text-blue-600 hover:text-blue-500"
                 >
-                  Forgot your password?
+                  {/* Forgot your password? */}
                 </a>
               </div>
               <div className={`${styles.noramlFlex}`}>

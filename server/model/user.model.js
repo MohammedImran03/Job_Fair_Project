@@ -17,44 +17,6 @@ const userSchema = new mongoose.Schema({
     minLength: [8, "Password should be greater than 8 characters"],
     select: false,
   },
-  mobile:{
-    type: String,
-    required: [true, "Please enter your MobileNumber!"],
-  },
-  addresses:[
-    {
-      State: {
-        type: String,
-      },
-      city:{
-        type: String,
-      },
-      address1:{
-        type: String,
-      },
-      address2:{
-        type: String,
-      },
-      zipCode:{
-        type: Number,
-      },
-      addressType:{
-        type: String,
-      },
-    }
-  ],
-  role:{
-    type: String,
-    default: "user",
-  },
-  avatar:{
-    public_id: {
-      type: String,
-    },
-    url: {
-      type: String,
-    },
- },
  createdAt:{
   type: Date,
   default: Date.now(),

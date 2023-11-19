@@ -1,4 +1,4 @@
-import { loginPending, loginSuccess, loginFail } from "./Login.Slice";
+import { loginPending, loginSuccess, loginFail,Putuserdata } from "./Login.Slice";
 import { userLogin} from "../../api/user.api";
 import toast from 'react-hot-toast';
 
@@ -12,7 +12,9 @@ export const accessusertologin = (values) => async (dispatch) => {
       if(isAuth.success === true){
         dispatch(loginSuccess());
         toast.success('Log in Success')
-        window.location.href="/";
+        // console.log(isAuth.data)
+        dispatch(Putuserdata(isAuth.data));
+         window.location.href="/my-notes";
       } 
     } catch (error) {
         if(error.response){
